@@ -80,3 +80,7 @@ Discovers MPLS SDP bindings by walking 10 OIDs (svcIdVal, svcName, svcType, sdpI
 ## Standalone JS files
 
 `sap_preprocessing.js` and `sdp_preprocessing.js` are identical to the JavaScript embedded in the template's discovery rule preprocessing steps. They are kept as standalone files for easier editing, diffing, and testing outside of Zabbix.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
