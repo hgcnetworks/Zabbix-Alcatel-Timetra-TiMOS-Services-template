@@ -17,7 +17,7 @@ zabbix_export:
         Created by HGCNetworks
       vendor:
         name: HGCNetworks
-        version: 1.0-2
+        version: 1.0-3
       groups:
         - name: 'Templates/Network devices'
       discovery_rules:
@@ -76,6 +76,33 @@ zabbix_export:
                       value: '{#SDP_TYPE}'
                     - tag: service
                       value: '{#SERVICE_ID}'
+            - uuid: 4bd9d1b234994453ac28643838cb35c0
+              name: 'Service: {#SERVICE_ID} - SDP: {#LABEL} - Egress Forwarded Packets'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.4.5.1.3.{#SNMPINDEX}]'
+              key: 'sdpBind.EgressForwardedPackets[{#SNMPINDEX}]'
+              units: pps
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: component
+                  value: MPLS
+                - tag: component
+                  value: sdpBind
+                - tag: component
+                  value: service
+                - tag: component
+                  value: SR-OS
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: sdpId
+                  value: '{#SDP_ID}'
+                - tag: sdpType
+                  value: '{#SDP_TYPE}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
             - uuid: ac7f3d9d42284d1586eb2cad1e04a1be
               name: 'Service: {#SERVICE_ID} - SDP: {#LABEL} - Ingress Forwarded Octets'
               type: SNMP_AGENT
@@ -87,6 +114,91 @@ zabbix_export:
                 - type: MULTIPLIER
                   parameters:
                     - '8'
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: component
+                  value: MPLS
+                - tag: component
+                  value: sdpBind
+                - tag: component
+                  value: service
+                - tag: component
+                  value: SR-OS
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: sdpId
+                  value: '{#SDP_ID}'
+                - tag: sdpType
+                  value: '{#SDP_TYPE}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: 6fb7335c249249e981bbb4e10c7c1ee6
+              name: 'Service: {#SERVICE_ID} - SDP: {#LABEL} - Ingress Dropped Octets'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.4.5.1.7.{#SNMPINDEX}]'
+              key: 'sdpBind.IngDropOctets[{#SNMPINDEX}]'
+              value_type: FLOAT
+              units: bps
+              preprocessing:
+                - type: MULTIPLIER
+                  parameters:
+                    - '8'
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: component
+                  value: MPLS
+                - tag: component
+                  value: sdpBind
+                - tag: component
+                  value: service
+                - tag: component
+                  value: SR-OS
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: sdpId
+                  value: '{#SDP_ID}'
+                - tag: sdpType
+                  value: '{#SDP_TYPE}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: 60831090641641b0b04b7a381b9786a5
+              name: 'Service: {#SERVICE_ID} - SDP: {#LABEL} - Ingress Dropped Packets'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.4.5.1.2.{#SNMPINDEX}]'
+              key: 'sdpBind.IngressDroppedPackets[{#SNMPINDEX}]'
+              units: pps
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: component
+                  value: MPLS
+                - tag: component
+                  value: sdpBind
+                - tag: component
+                  value: service
+                - tag: component
+                  value: SR-OS
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: sdpId
+                  value: '{#SDP_ID}'
+                - tag: sdpType
+                  value: '{#SDP_TYPE}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: 4f1b64efa0d14af88e3f6734921afc04
+              name: 'Service: {#SERVICE_ID} - SDP: {#LABEL} - Ingress Forwarded Packets'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.4.5.1.1.{#SNMPINDEX}]'
+              key: 'sdpBind.IngressForwardedPackets[{#SNMPINDEX}]'
+              units: pps
+              preprocessing:
                 - type: CHANGE_PER_SECOND
               tags:
                 - tag: component
@@ -139,6 +251,27 @@ zabbix_export:
                 - tag: service
                   value: '{#SERVICE_ID}'
           graph_prototypes:
+            - uuid: 232763dcd96b4d0797ee660432eff82d
+              name: 'Service {#SERVICE_ID} SDP {#LABEL} Packets'
+              yaxismax: '0'
+              percent_right: '95'
+              graph_items:
+                - color: 00FF00
+                  yaxisside: RIGHT
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sdpBind.IngressForwardedPackets[{#SNMPINDEX}]'
+                - sortorder: '1'
+                  color: FF0000
+                  yaxisside: RIGHT
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sdpBind.EgressForwardedPackets[{#SNMPINDEX}]'
+                - sortorder: '2'
+                  color: 0040FF
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sdpBind.IngressDroppedPackets[{#SNMPINDEX}]'
             - uuid: bb100ebb26da4cdca1ecbd99c509aa0b
               name: 'Service {#SERVICE_ID} SDP {#LABEL} Traffic'
               percent_right: '95'
@@ -156,6 +289,12 @@ zabbix_export:
                   item:
                     host: 'Alcatel Timetra TiMOS Services by SNMP'
                     key: 'sdpBind.inForwardedOctets[{#SNMPINDEX}]'
+                - sortorder: '2'
+                  color: FF0000
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sdpBind.IngDropOctets[{#SNMPINDEX}]'
           preprocessing:
             - type: JAVASCRIPT
               parameters:
@@ -263,6 +402,130 @@ zabbix_export:
           key: services-sap.discovery
           delay: 1h
           item_prototypes:
+            - uuid: 6e90e2b9e5424a9f9df41dadd30f24a1
+              name: 'Service: {#SERVICE_ID} - IngressPchipOfferedHiPrioOctets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.4.{#SNMPINDEX}]'
+              key: 'sap.HiPrio.Pchip.IngressOctetsOffered[{#SNMPINDEX}]'
+              value_type: FLOAT
+              units: bps
+              preprocessing:
+                - type: MULTIPLIER
+                  parameters:
+                    - '8'
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Pchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Offered
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: traffic
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: a0d3930649c14faeb64a6d5af531fdff
+              name: 'Service: {#SERVICE_ID} - IngressPchipOfferedHiPrioPackets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.3.{#SNMPINDEX}]'
+              key: 'sap.HiPrio.Pchip.IngressPacketsOffered[{#SNMPINDEX}]'
+              units: pps
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Pchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Offered
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: packets
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: c9ad28c44de3463c94a14ad930a4dbec
+              name: 'Service: {#SERVICE_ID} - IngressQchipDroppedHiPrioOctets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.8.{#SNMPINDEX}]'
+              key: 'sap.HiPrio.Qchip.IngressOctetsDropped[{#SNMPINDEX}]'
+              value_type: FLOAT
+              units: bps
+              preprocessing:
+                - type: MULTIPLIER
+                  parameters:
+                    - '8'
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Qchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Dropped
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: traffic
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: 99d4ab0e165e4c0d9aac8f69dbc19ab6
+              name: 'Service: {#SERVICE_ID} - IngressQchipDroppedHiPrioPackets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.7.{#SNMPINDEX}]'
+              key: 'sap.HiPrio.Qchip.IngressPacketsDropped[{#SNMPINDEX}]'
+              units: pps
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Qchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Dropped
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: packets
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
             - uuid: acd2c204374d475c86e23935866c2c2e
               name: 'Service: {#SERVICE_ID} - Total Ingress Octets for sap:{#PORT_NAME}:{#ENCAP}'
               type: CALCULATED
@@ -270,14 +533,22 @@ zabbix_export:
               units: bps
               params: 'last(//sap.inProfile.inOctets[{#SNMPINDEX}]) + last(//sap.outofProfile.inOctets[{#SNMPINDEX}])'
               tags:
+                - tag: chip
+                  value: Qchip
                 - tag: component
                   value: sap
                 - tag: component
                   value: service
+                - tag: counter
+                  value: Forwarded
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: traffic
                 - tag: sap
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
@@ -289,23 +560,32 @@ zabbix_export:
               units: pps
               params: 'last(//sap.inProfile.Qchip.IngressPackets[{#SNMPINDEX}]) + last(//sap.outOfProfile.Qchip.IngressPackets[{#SNMPINDEX}])'
               tags:
+                - tag: chip
+                  value: Qchip
                 - tag: component
                   value: sap
                 - tag: component
                   value: service
+                - tag: counter
+                  value: Forwarded
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: packets
                 - tag: sap
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
             - uuid: c3a64da6dff2441dae8a484b58e01b19
-              name: 'Service: {#SERVICE_ID} - inProfile.inOctets for sap:{#PORT_NAME}:{#ENCAP}'
+              name: 'Service: {#SERVICE_ID} - IngressQchipForwardedInProfOctets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
               snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.12.{#SNMPINDEX}]'
               key: 'sap.inProfile.inOctets[{#SNMPINDEX}]'
+              value_type: FLOAT
               units: bps
               description: 'The number of in-profile octets (rate below CIR) forwarded by the ingress Qchip.'
               preprocessing:
@@ -314,23 +594,32 @@ zabbix_export:
                     - '8'
                 - type: CHANGE_PER_SECOND
               tags:
+                - tag: chip
+                  value: Qchip
                 - tag: component
                   value: sap
                 - tag: component
                   value: service
+                - tag: counter
+                  value: Forwarded
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: traffic
                 - tag: sap
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
-            - uuid: c7913c45bfe24150850b1f332bb44f01
-              name: 'Service: {#SERVICE_ID} - inProfile.outOctets for sap:{#PORT_NAME}:{#ENCAP}'
+            - uuid: 40351c2eaebc45479815d53141ac2ec4
+              name: 'Service: {#SERVICE_ID} - EgressQchipDroppedInProfOctets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
-              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.20.{#SNMPINDEX}]'
-              key: 'sap.inProfile.outOctets[{#SNMPINDEX}]'
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.16.{#SNMPINDEX}]'
+              key: 'sap.inProfile.outOctetsDropped[{#SNMPINDEX}]'
+              value_type: FLOAT
               units: bps
               preprocessing:
                 - type: MULTIPLIER
@@ -338,14 +627,84 @@ zabbix_export:
                     - '8'
                 - type: CHANGE_PER_SECOND
               tags:
+                - tag: chip
+                  value: Qchip
                 - tag: component
                   value: sap
                 - tag: component
                   value: service
+                - tag: counter
+                  value: Dropped
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Egress
+                - tag: metric
+                  value: traffic
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: c7913c45bfe24150850b1f332bb44f01
+              name: 'Service: {#SERVICE_ID} - EgressQchipForwardedInProfOctets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.20.{#SNMPINDEX}]'
+              key: 'sap.inProfile.outOctets[{#SNMPINDEX}]'
+              value_type: FLOAT
+              units: bps
+              preprocessing:
+                - type: MULTIPLIER
+                  parameters:
+                    - '8'
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Qchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Forwarded
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Egress
+                - tag: metric
+                  value: traffic
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: 9b1aa30763b74711bccfa18ba839c6a8
+              name: 'Service: {#SERVICE_ID} - EgressQchipDroppedInProfPackets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.15.{#SNMPINDEX}]'
+              key: 'sap.inProfile.Qchip.egressPacketsDropped[{#SNMPINDEX}]'
+              units: pps
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Qchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Dropped
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Egress
+                - tag: metric
+                  value: packets
                 - tag: sap
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
@@ -359,14 +718,22 @@ zabbix_export:
               preprocessing:
                 - type: CHANGE_PER_SECOND
               tags:
+                - tag: chip
+                  value: Qchip
                 - tag: component
                   value: sap
                 - tag: component
                   value: service
+                - tag: counter
+                  value: Forwarded
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Egress
+                - tag: metric
+                  value: packets
                 - tag: sap
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
@@ -380,14 +747,146 @@ zabbix_export:
               preprocessing:
                 - type: CHANGE_PER_SECOND
               tags:
+                - tag: chip
+                  value: Qchip
                 - tag: component
                   value: sap
                 - tag: component
                   value: service
+                - tag: counter
+                  value: Forwarded
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: packets
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: 8d60eacca83345aeb8a5eb6b4f5ddab0
+              name: 'Service: {#SERVICE_ID} - IngressPchipOfferedLoPrioOctets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.6.{#SNMPINDEX}]'
+              key: 'sap.LoPrio.Pchip.IngressOctetsOffered[{#SNMPINDEX}]'
+              value_type: FLOAT
+              units: bps
+              preprocessing:
+                - type: MULTIPLIER
+                  parameters:
+                    - '8'
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Pchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Offered
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: traffic
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: e37cb9b6f7db4c42b7d4c7640d38ab64
+              name: 'Service: {#SERVICE_ID} - IngressPchipOfferedLoPrioPackets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.5.{#SNMPINDEX}]'
+              key: 'sap.LoPrio.Pchip.IngressPacketsOffered[{#SNMPINDEX}]'
+              units: pps
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Pchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Offered
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: packets
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: 15317b0c181346849d457fb7fee7a228
+              name: 'Service: {#SERVICE_ID} - IngressQchipDroppedLoPrioOctets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.10.{#SNMPINDEX}]'
+              key: 'sap.LoPrio.Qchip.IngressOctetsDropped[{#SNMPINDEX}]'
+              value_type: FLOAT
+              units: bps
+              preprocessing:
+                - type: MULTIPLIER
+                  parameters:
+                    - '8'
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Qchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Dropped
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: traffic
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: 2a872e841f7449dc9931dfab3260db70
+              name: 'Service: {#SERVICE_ID} - IngressQchipDroppedLoPrioPackets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.9.{#SNMPINDEX}]'
+              key: 'sap.LoPrio.Qchip.IngressPacketsDropped[{#SNMPINDEX}]'
+              units: pps
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Qchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Dropped
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: packets
                 - tag: sap
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
@@ -439,23 +938,32 @@ zabbix_export:
               units: bps
               params: 'last(//sap.inProfile.outOctets[{#SNMPINDEX}]) + last(//sap.outofProfile.outOctets[{#SNMPINDEX}])'
               tags:
+                - tag: chip
+                  value: Qchip
                 - tag: component
                   value: sap
                 - tag: component
                   value: service
+                - tag: counter
+                  value: Forwarded
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Egress
+                - tag: metric
+                  value: traffic
                 - tag: sap
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
             - uuid: c669b803425045cd8d282dc7efd507fa
-              name: 'Service: {#SERVICE_ID} - outofProfile.inOctets for sap:{#PORT_NAME}:{#ENCAP}'
+              name: 'Service: {#SERVICE_ID} - IngressQchipForwardedOutProfOctets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
               snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.14.{#SNMPINDEX}]'
               key: 'sap.outofProfile.inOctets[{#SNMPINDEX}]'
+              value_type: FLOAT
               units: bps
               preprocessing:
                 - type: MULTIPLIER
@@ -463,23 +971,65 @@ zabbix_export:
                     - '8'
                 - type: CHANGE_PER_SECOND
               tags:
+                - tag: chip
+                  value: Qchip
                 - tag: component
                   value: sap
                 - tag: component
                   value: service
+                - tag: counter
+                  value: Forwarded
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: traffic
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: 1b5a22c63d17454abfdba81e991c1658
+              name: 'Service: {#SERVICE_ID} - EgressQchipDroppedOutProfOctets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.18.{#SNMPINDEX}]'
+              key: 'sap.outOfProfile.outOctetsDropped[{#SNMPINDEX}]'
+              value_type: FLOAT
+              units: bps
+              preprocessing:
+                - type: MULTIPLIER
+                  parameters:
+                    - '8'
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Qchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Dropped
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Egress
+                - tag: metric
+                  value: traffic
                 - tag: sap
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
             - uuid: 574949c5016d409596e10555629085c8
-              name: 'Service: {#SERVICE_ID} - outofProfile.outOctets for sap:{#PORT_NAME}:{#ENCAP}'
+              name: 'Service: {#SERVICE_ID} - EgressQchipForwardedOutProfOctets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
               snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.22.{#SNMPINDEX}]'
               key: 'sap.outofProfile.outOctets[{#SNMPINDEX}]'
+              value_type: FLOAT
               units: bps
               preprocessing:
                 - type: MULTIPLIER
@@ -487,14 +1037,51 @@ zabbix_export:
                     - '8'
                 - type: CHANGE_PER_SECOND
               tags:
+                - tag: chip
+                  value: Qchip
                 - tag: component
                   value: sap
                 - tag: component
                   value: service
+                - tag: counter
+                  value: Forwarded
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Egress
+                - tag: metric
+                  value: traffic
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: 805949a52c9145d6b31e898cd5d66648
+              name: 'Service: {#SERVICE_ID} - EgressQchipDroppedOutProfPackets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.17.{#SNMPINDEX}]'
+              key: 'sap.outOfProfile.Qchip.egressPacketsDropped[{#SNMPINDEX}]'
+              units: pps
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Qchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Dropped
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Egress
+                - tag: metric
+                  value: packets
                 - tag: sap
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
@@ -508,14 +1095,22 @@ zabbix_export:
               preprocessing:
                 - type: CHANGE_PER_SECOND
               tags:
+                - tag: chip
+                  value: Qchip
                 - tag: component
                   value: sap
                 - tag: component
                   value: service
+                - tag: counter
+                  value: Forwarded
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Egress
+                - tag: metric
+                  value: packets
                 - tag: sap
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
@@ -529,14 +1124,22 @@ zabbix_export:
               preprocessing:
                 - type: CHANGE_PER_SECOND
               tags:
+                - tag: chip
+                  value: Qchip
                 - tag: component
                   value: sap
                 - tag: component
                   value: service
+                - tag: counter
+                  value: Forwarded
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: packets
                 - tag: sap
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
@@ -548,21 +1151,184 @@ zabbix_export:
               units: pps
               params: 'last(//sap.inProfile.Qchip.egressPackets[{#SNMPINDEX}]) + last(//sap.outOfProfile.Qchip.egressPackets[{#SNMPINDEX}])'
               tags:
+                - tag: chip
+                  value: Qchip
                 - tag: component
                   value: sap
                 - tag: component
                   value: service
+                - tag: counter
+                  value: Forwarded
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Egress
+                - tag: metric
+                  value: packets
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: c42a563423db4b1db1e9de307562c32a
+              name: 'Service: {#SERVICE_ID} - IngressPchipDroppedOctets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.2.{#SNMPINDEX}]'
+              key: 'sap.Pchip.IngressOctetsDropped[{#SNMPINDEX}]'
+              value_type: FLOAT
+              units: bps
+              preprocessing:
+                - type: MULTIPLIER
+                  parameters:
+                    - '8'
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Pchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Dropped
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: traffic
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: 66001b11c04742d19e6c28584b59eaf6
+              name: 'Service: {#SERVICE_ID} - IngressPchipDroppedPackets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.1.{#SNMPINDEX}]'
+              key: 'sap.Pchip.IngressPacketsDropped[{#SNMPINDEX}]'
+              units: pps
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Pchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Dropped
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: packets
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: 7c90c885baa943c5843197348ed335be
+              name: 'Service: {#SERVICE_ID} - IngressPchipOfferedUncoloredOctets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.25.{#SNMPINDEX}]'
+              key: 'sap.Uncolored.Pchip.IngressOctetsOffered[{#SNMPINDEX}]'
+              value_type: FLOAT
+              units: bps
+              preprocessing:
+                - type: MULTIPLIER
+                  parameters:
+                    - '8'
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Pchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Offered
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: traffic
+                - tag: sap
+                  value: 'sap:{#PORT_NAME}:{#ENCAP}'
+                - tag: service
+                  value: '{#SERVICE_ID}'
+            - uuid: 1e371516110940e488207786164d7568
+              name: 'Service: {#SERVICE_ID} - IngressPchipOfferedUncoloredPackets for sap:{#PORT_NAME}:{#ENCAP}'
+              type: SNMP_AGENT
+              snmp_oid: 'get[1.3.6.1.4.1.6527.3.1.2.4.3.6.1.24.{#SNMPINDEX}]'
+              key: 'sap.Uncolored.Pchip.IngressPacketsOffered[{#SNMPINDEX}]'
+              units: pps
+              preprocessing:
+                - type: CHANGE_PER_SECOND
+              tags:
+                - tag: chip
+                  value: Pchip
+                - tag: component
+                  value: sap
+                - tag: component
+                  value: service
+                - tag: counter
+                  value: Offered
+                - tag: customer
+                  value: '{#CUSTOMER}'
+                - tag: customerId
+                  value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: packets
                 - tag: sap
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
           graph_prototypes:
+            - uuid: d57d8ff008c74de3a5d54b8a008f1c4c
+              name: 'Packets Pchip service {#SERVICE_ID} sap:{#PORT_NAME}:{#ENCAP} Details'
+              percent_right: '95'
+              graph_items:
+                - color: 0040FF
+                  yaxisside: RIGHT
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.HiPrio.Pchip.IngressPacketsOffered[{#SNMPINDEX}]'
+                - sortorder: '1'
+                  color: 0080FF
+                  yaxisside: RIGHT
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.LoPrio.Pchip.IngressPacketsOffered[{#SNMPINDEX}]'
+                - sortorder: '2'
+                  color: 00BFFF
+                  yaxisside: RIGHT
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.Uncolored.Pchip.IngressPacketsOffered[{#SNMPINDEX}]'
+                - sortorder: '3'
+                  color: FF0000
+                  yaxisside: RIGHT
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.Pchip.IngressPacketsDropped[{#SNMPINDEX}]'
             - uuid: b1302801617941be8bb2e072b132581e
-              name: 'Packets  service {#SERVICE_ID} sap:{#PORT_NAME}:{#ENCAP}'
+              name: 'Packets Qchip: service {#SERVICE_ID} sap:{#PORT_NAME}:{#ENCAP}'
               percent_right: '95'
               graph_items:
                 - color: 199C0D
@@ -579,7 +1345,7 @@ zabbix_export:
                     host: 'Alcatel Timetra TiMOS Services by SNMP'
                     key: 'sap.inPackets[{#SNMPINDEX}]'
             - uuid: 113dddb0ae2942158e5109dac2617128
-              name: 'Packets  service {#SERVICE_ID} sap:{#PORT_NAME}:{#ENCAP} Details'
+              name: 'Packets Qchip service {#SERVICE_ID} sap:{#PORT_NAME}:{#ENCAP} Details'
               percent_right: '95'
               graph_items:
                 - color: 199C0D
@@ -609,8 +1375,62 @@ zabbix_export:
                   item:
                     host: 'Alcatel Timetra TiMOS Services by SNMP'
                     key: 'sap.outOfProfile.Qchip.IngressPackets[{#SNMPINDEX}]'
+                - sortorder: '4'
+                  color: E57373
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.inProfile.Qchip.egressPacketsDropped[{#SNMPINDEX}]'
+                - sortorder: '5'
+                  color: EF5350
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.outOfProfile.Qchip.egressPacketsDropped[{#SNMPINDEX}]'
+                - sortorder: '6'
+                  color: '891515'
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.HiPrio.Qchip.IngressPacketsDropped[{#SNMPINDEX}]'
+                - sortorder: '7'
+                  color: 5B0E0E
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.LoPrio.Qchip.IngressPacketsDropped[{#SNMPINDEX}]'
+            - uuid: 4b4b64d408b549e89199b465579cc61b
+              name: 'Traffic Pchip service {#SERVICE_ID} sap:{#PORT_NAME}:{#ENCAP} details'
+              percent_right: '95'
+              graph_items:
+                - color: 0040FF
+                  yaxisside: RIGHT
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.HiPrio.Pchip.IngressOctetsOffered[{#SNMPINDEX}]'
+                - sortorder: '1'
+                  color: 0080FF
+                  yaxisside: RIGHT
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.LoPrio.Pchip.IngressOctetsOffered[{#SNMPINDEX}]'
+                - sortorder: '2'
+                  color: 00BFFF
+                  yaxisside: RIGHT
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.Uncolored.Pchip.IngressOctetsOffered[{#SNMPINDEX}]'
+                - sortorder: '3'
+                  color: FF0000
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.Pchip.IngressOctetsDropped[{#SNMPINDEX}]'
             - uuid: b200a9d429914e13872503a0fc598334
-              name: 'Traffic service {#SERVICE_ID} sap:{#PORT_NAME}:{#ENCAP}'
+              name: 'Traffic Qchip service {#SERVICE_ID} sap:{#PORT_NAME}:{#ENCAP}'
               percent_right: '95'
               graph_items:
                 - color: 0040FF
@@ -625,7 +1445,7 @@ zabbix_export:
                     host: 'Alcatel Timetra TiMOS Services by SNMP'
                     key: 'sap.outOctets[{#SNMPINDEX}]'
             - uuid: b3e236f830d748d18cd99562bc8d10fc
-              name: 'Traffic service {#SERVICE_ID} sap:{#PORT_NAME}:{#ENCAP} details'
+              name: 'Traffic Qchip service {#SERVICE_ID} sap:{#PORT_NAME}:{#ENCAP} details'
               percent_right: '95'
               graph_items:
                 - color: 0040FF
@@ -655,6 +1475,30 @@ zabbix_export:
                   item:
                     host: 'Alcatel Timetra TiMOS Services by SNMP'
                     key: 'sap.outofProfile.outOctets[{#SNMPINDEX}]'
+                - sortorder: '4'
+                  color: FF0000
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.inProfile.outOctetsDropped[{#SNMPINDEX}]'
+                - sortorder: '5'
+                  color: C62828
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.outOfProfile.outOctetsDropped[{#SNMPINDEX}]'
+                - sortorder: '6'
+                  color: '891515'
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.HiPrio.Qchip.IngressOctetsDropped[{#SNMPINDEX}]'
+                - sortorder: '7'
+                  color: 5B0E0E
+                  calc_fnc: ALL
+                  item:
+                    host: 'Alcatel Timetra TiMOS Services by SNMP'
+                    key: 'sap.LoPrio.Qchip.IngressOctetsDropped[{#SNMPINDEX}]'
           preprocessing:
             - type: JAVASCRIPT
               parameters:
@@ -766,7 +1610,7 @@ zabbix_export:
                       name: graphid.0
                       value:
                         host: 'Alcatel Timetra TiMOS Services by SNMP'
-                        name: 'Traffic service {#SERVICE_ID} sap:{#PORT_NAME}:{#ENCAP}'
+                        name: 'Traffic Qchip service {#SERVICE_ID} sap:{#PORT_NAME}:{#ENCAP}'
                     - type: STRING
                       name: reference
                       value: MQAQH
