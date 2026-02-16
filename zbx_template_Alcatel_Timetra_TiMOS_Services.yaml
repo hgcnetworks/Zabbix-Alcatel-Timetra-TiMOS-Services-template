@@ -17,14 +17,14 @@ zabbix_export:
         Created by HGCNetworks
       vendor:
         name: HGCNetworks
-        version: 1.0-5
+        version: 1.0-6
       groups:
         - name: 'Templates/Network devices'
       discovery_rules:
         - uuid: d3fb849afe4141c1a0b569db963ee718
           name: 'Services - sdpBind discovery'
           type: SNMP_AGENT
-          snmp_oid: 'discovery[{#SVC_ID_VAL},1.3.6.1.4.1.6527.3.1.2.4.2.2.1.2,{#SVC_NAME},1.3.6.1.4.1.6527.3.1.2.4.2.2.1.29,{#SVC_TYPE},1.3.6.1.4.1.6527.3.1.2.4.2.2.1.3,{#SDP_ID_VAL},1.3.6.1.4.1.6527.3.1.2.4.4.4.1.1,{#SDP_STATUS},1.3.6.1.4.1.6527.3.1.2.4.4.4.1.8,{#SDP_TYPE},1.3.6.1.4.1.6527.3.1.2.4.4.4.1.10,{#SDP_IP},1.3.6.1.4.1.6527.3.1.2.4.4.3.1.4,{#SVC_CUST_ID},1.3.6.1.4.1.6527.3.1.2.4.2.2.1.4,{#CUST_DESC},1.3.6.1.4.1.6527.3.1.2.4.1.3.1.3,{#SDP_ORIGIN},1.3.6.1.4.1.6527.3.1.2.4.4.4.1.42]'
+          snmp_oid: 'discovery[{#SVC_ID_VAL},1.3.6.1.4.1.6527.3.1.2.4.2.2.1.2,{#SVC_NAME},1.3.6.1.4.1.6527.3.1.2.4.2.2.1.29,{#SVC_TYPE},1.3.6.1.4.1.6527.3.1.2.4.2.2.1.3,{#SDP_STATUS},1.3.6.1.4.1.6527.3.1.2.4.4.4.1.8,{#SDP_TYPE},1.3.6.1.4.1.6527.3.1.2.4.4.4.1.10,{#SDP_IP},1.3.6.1.4.1.6527.3.1.2.4.4.3.1.4,{#SVC_CUST_ID},1.3.6.1.4.1.6527.3.1.2.4.2.2.1.4,{#CUST_DESC},1.3.6.1.4.1.6527.3.1.2.4.1.3.1.3,{#SDP_ORIGIN},1.3.6.1.4.1.6527.3.1.2.4.4.4.1.42,{#SVC_DESC},1.3.6.1.4.1.6527.3.1.2.4.2.2.1.6]'
           key: service-sdpBind.discovery
           delay: 1h
           item_prototypes:
@@ -48,6 +48,12 @@ zabbix_export:
                   value: '{#SDP_TYPE}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
               trigger_prototypes:
                 - uuid: 1b9cde4d41504ab6a2649af743cfe772
                   expression: 'last(/Alcatel Timetra TiMOS Services by SNMP/sdp.operStatus[{#SNMPINDEX}])>=2 and (last(/Alcatel Timetra TiMOS Services by SNMP/sdp.operStatus[{#SNMPINDEX}],#1) <> last(/Alcatel Timetra TiMOS Services by SNMP/sdp.operStatus[{#SNMPINDEX}],#2))'
@@ -70,6 +76,12 @@ zabbix_export:
                       value: '{#SDP_TYPE}'
                     - tag: service
                       value: '{#SERVICE_ID}'
+                    - tag: serviceDescription
+                      value: '{#SERVICE_DESC}'
+                    - tag: serviceName
+                      value: '{#SERVICE_NAME}'
+                    - tag: serviceType
+                      value: '{#SVC_TYPE}'
             - uuid: 4bd9d1b234994453ac28643838cb35c0
               name: 'Service: {#SERVICE_ID} - SDP: {#LABEL} - Egress Forwarded Packets'
               type: SNMP_AGENT
@@ -97,6 +109,12 @@ zabbix_export:
                   value: '{#SDP_TYPE}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: ac7f3d9d42284d1586eb2cad1e04a1be
               name: 'Service: {#SERVICE_ID} - SDP: {#LABEL} - Ingress Forwarded Octets'
               type: SNMP_AGENT
@@ -128,6 +146,12 @@ zabbix_export:
                   value: '{#SDP_TYPE}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 6fb7335c249249e981bbb4e10c7c1ee6
               name: 'Service: {#SERVICE_ID} - SDP: {#LABEL} - Ingress Dropped Octets'
               type: SNMP_AGENT
@@ -159,6 +183,12 @@ zabbix_export:
                   value: '{#SDP_TYPE}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 60831090641641b0b04b7a381b9786a5
               name: 'Service: {#SERVICE_ID} - SDP: {#LABEL} - Ingress Dropped Packets'
               type: SNMP_AGENT
@@ -186,6 +216,12 @@ zabbix_export:
                   value: '{#SDP_TYPE}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 4f1b64efa0d14af88e3f6734921afc04
               name: 'Service: {#SERVICE_ID} - SDP: {#LABEL} - Ingress Forwarded Packets'
               type: SNMP_AGENT
@@ -213,6 +249,12 @@ zabbix_export:
                   value: '{#SDP_TYPE}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 163f0d9d3f8e4fe4892bf9f1866cd690
               name: 'Service: {#SERVICE_ID} - SDP: {#LABEL} - Egress Forwarded Octets'
               type: SNMP_AGENT
@@ -244,6 +286,12 @@ zabbix_export:
                   value: '{#SDP_TYPE}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
           graph_prototypes:
             - uuid: 232763dcd96b4d0797ee660432eff82d
               name: 'Service {#SERVICE_ID} SDP {#LABEL} Packets'
@@ -298,8 +346,11 @@ zabbix_export:
                   // far-end IPs, service names, and customer info from TIMETRA-SERV-MIB walks.
                   
                   var input = JSON.parse(value);
+                  // Service type value mapping (TmnxServType from TIMETRA-SERV-MIB)
+                  var svcTypeMap = {"0":"unknown","1":"epipe","3":"vpls","4":"vprn","5":"ies","6":"mirror","7":"apipe","8":"fpipe","9":"ipipe","10":"cpipe","11":"intTls","12":"evpnIsaTls"};
                   var services = {};
                   var svcTypes = {};
+                  var svcDescs = {};
                   var sdpIps = {};
                   var sdpEntries = [];
                   var svcCustomers = {};
@@ -313,8 +364,10 @@ zabbix_export:
                   
                       // Service name — prefer descriptive name, fall back to numeric ID
                       if (item["{#SVC_NAME}"]) { services[idx] = item["{#SVC_NAME}"]; }
-                      // Service type (e.g. VPLS, VPRN, Epipe)
-                      if (item["{#SVC_TYPE}"]) { svcTypes[idx] = item["{#SVC_TYPE}"]; }
+                      // Service type — map numeric value to name (TmnxServType)
+                      if (item["{#SVC_TYPE}"]) { svcTypes[idx] = svcTypeMap[item["{#SVC_TYPE}"]] || item["{#SVC_TYPE}"]; }
+                      // Service description
+                      if (item["{#SVC_DESC}"]) { svcDescs[idx] = item["{#SVC_DESC}"]; }
                       // Service ID value — fallback when descriptive service name is unavailable
                       if (item["{#SVC_ID_VAL}"]) { if (!services[idx]) services[idx] = item["{#SVC_ID_VAL}"]; }
                       // SDP far-end IP address — keyed by sdpId
@@ -377,6 +430,7 @@ zabbix_export:
                               "{#SNMPINDEX}": index,
                               "{#SERVICE_ID}": svcIdRaw,
                               "{#SERVICE_NAME}": svcName,
+                              "{#SERVICE_DESC}": svcDescs[svcIdRaw] || "",
                               "{#SVC_TYPE}": svcTypes[svcIdRaw] || "",
                               "{#SDP_ID}": sdpIdNum.toString(),
                               "{#VC_ID}": vcIdNum.toString(),
@@ -392,7 +446,7 @@ zabbix_export:
         - uuid: 6c55130d697945bab9a2400ccdbaa1a0
           name: 'Services - sap discovery'
           type: SNMP_AGENT
-          snmp_oid: 'discovery[{#SAP_PORT_ID}, 1.3.6.1.4.1.6527.3.1.2.4.3.2.1.1, {#PORT_NAME}, 1.3.6.1.2.1.31.1.1.1.1, {#SVC_ID_VAL}, 1.3.6.1.4.1.6527.3.1.2.4.2.2.1.1, {#SVC_TYPE}, 1.3.6.1.4.1.6527.3.1.2.4.2.2.1.3, {#ENCAP_VAL}, 1.3.6.1.4.1.6527.3.1.2.4.3.2.1.2, {#SAP_CUST_ID}, 1.3.6.1.4.1.6527.3.1.2.4.3.2.1.20, {#CUST_DESC}, 1.3.6.1.4.1.6527.3.1.2.4.1.3.1.3]'
+          snmp_oid: 'discovery[{#SAP_PORT_ID}, 1.3.6.1.4.1.6527.3.1.2.4.3.2.1.1, {#PORT_NAME}, 1.3.6.1.2.1.31.1.1.1.1, {#SVC_ID_VAL}, 1.3.6.1.4.1.6527.3.1.2.4.2.2.1.1, {#SVC_TYPE}, 1.3.6.1.4.1.6527.3.1.2.4.2.2.1.3, {#ENCAP_VAL}, 1.3.6.1.4.1.6527.3.1.2.4.3.2.1.2, {#SAP_CUST_ID}, 1.3.6.1.4.1.6527.3.1.2.4.3.2.1.20, {#CUST_DESC}, 1.3.6.1.4.1.6527.3.1.2.4.1.3.1.3, {#SVC_NAME}, 1.3.6.1.4.1.6527.3.1.2.4.2.2.1.29, {#SVC_DESC}, 1.3.6.1.4.1.6527.3.1.2.4.2.2.1.6]'
           key: services-sap.discovery
           delay: 1h
           item_prototypes:
@@ -427,6 +481,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: a0d3930649c14faeb64a6d5af531fdff
               name: 'Service: {#SERVICE_ID} - Ingress Pchip Offered HiPrio Packets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -454,6 +514,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: c9ad28c44de3463c94a14ad930a4dbec
               name: 'Service: {#SERVICE_ID} - Ingress Qchip Dropped HiPrio Octets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -485,6 +551,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 99d4ab0e165e4c0d9aac8f69dbc19ab6
               name: 'Service: {#SERVICE_ID} - Ingress Qchip Dropped HiPrio Packets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -512,6 +584,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: acd2c204374d475c86e23935866c2c2e
               name: 'Service: {#SERVICE_ID} - Total Ingress Octets for sap:{#PORT_NAME}:{#ENCAP}'
               type: CALCULATED
@@ -537,6 +615,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: f063530f6dd64ba594eb2a1730456ba3
               name: 'Service: {#SERVICE_ID} - Total Ingress Packets for sap:{#PORT_NAME}:{#ENCAP}'
               type: CALCULATED
@@ -562,6 +646,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: c3a64da6dff2441dae8a484b58e01b19
               name: 'Service: {#SERVICE_ID} - Ingress Qchip Forwarded InProf Octets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -594,6 +684,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 40351c2eaebc45479815d53141ac2ec4
               name: 'Service: {#SERVICE_ID} - Egress Qchip Dropped InProf Octets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -625,6 +721,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: c7913c45bfe24150850b1f332bb44f01
               name: 'Service: {#SERVICE_ID} - Egress Qchip Forwarded InProf Octets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -656,6 +758,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 9b1aa30763b74711bccfa18ba839c6a8
               name: 'Service: {#SERVICE_ID} - Egress Qchip Dropped InProf Packets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -683,6 +791,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 1e42f8d0c31a4b82b385f0bf0cfba6ab
               name: 'Service: {#SERVICE_ID} - Egress Qchip Forwarded InProf Packets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -710,6 +824,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: a0b98bbcc4f4485d973c11f7000c2e0d
               name: 'Service: {#SERVICE_ID} - Ingress Qchip Forwarded InProf Packets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -737,6 +857,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 8d60eacca83345aeb8a5eb6b4f5ddab0
               name: 'Service: {#SERVICE_ID} - Ingress Pchip Offered LoPrio Octets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -768,6 +894,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: e37cb9b6f7db4c42b7d4c7640d38ab64
               name: 'Service: {#SERVICE_ID} - Ingress Pchip Offered LoPrio Packets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -795,6 +927,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 15317b0c181346849d457fb7fee7a228
               name: 'Service: {#SERVICE_ID} - Ingress Qchip Dropped LoPrio Octets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -826,6 +964,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 2a872e841f7449dc9931dfab3260db70
               name: 'Service: {#SERVICE_ID} - Ingress Qchip Dropped LoPrio Packets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -853,6 +997,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 71edbc1284a543059ac7afd6f83c0732
               name: 'Service: {#SERVICE_ID} - Sap operational status for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -871,6 +1021,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
               trigger_prototypes:
                 - uuid: 95128ae91b1a494d925a0527237bb950
                   expression: 'last(/Alcatel Timetra TiMOS Services by SNMP/sap.operStatus[{#SNMPINDEX}])>=2 and (last(/Alcatel Timetra TiMOS Services by SNMP/sap.operStatus[{#SNMPINDEX}],#1) <> last(/Alcatel Timetra TiMOS Services by SNMP/sap.operStatus[{#SNMPINDEX}],#2))'
@@ -891,6 +1047,12 @@ zabbix_export:
                       value: 'sap:{#PORT_NAME}:{#ENCAP}'
                     - tag: service
                       value: '{#SERVICE_ID}'
+                    - tag: serviceDescription
+                      value: '{#SERVICE_DESC}'
+                    - tag: serviceName
+                      value: '{#SERVICE_NAME}'
+                    - tag: serviceType
+                      value: '{#SVC_TYPE}'
             - uuid: 57c711a791be4c558eb80494644ac385
               name: 'Service: {#SERVICE_ID} - Total Egress Octets for sap:{#PORT_NAME}:{#ENCAP}'
               type: CALCULATED
@@ -916,6 +1078,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: c669b803425045cd8d282dc7efd507fa
               name: 'Service: {#SERVICE_ID} - Ingress Qchip Forwarded OutProf Octets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -947,6 +1115,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 1b5a22c63d17454abfdba81e991c1658
               name: 'Service: {#SERVICE_ID} - Egress Qchip Dropped OutProf Octets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -978,6 +1152,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 574949c5016d409596e10555629085c8
               name: 'Service: {#SERVICE_ID} - Egress Qchip Forwarded OutProf Octets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -1009,6 +1189,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 805949a52c9145d6b31e898cd5d66648
               name: 'Service: {#SERVICE_ID} - Egress Qchip Dropped OutProf Packets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -1036,6 +1222,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: e7cf4bc7bfbe41e0b9732041c5eee650
               name: 'Service: {#SERVICE_ID} - Egress Qchip Forwarded OutProf Packets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -1063,6 +1255,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: dd07e2574b8f4703a789dfba8102e947
               name: 'Service: {#SERVICE_ID} - Ingress Qchip Forwarded OutProf Packets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -1090,6 +1288,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: c3c5fbb64235459ba7529b9401aa553b
               name: 'Service: {#SERVICE_ID} - Total Egress Packets for sap:{#PORT_NAME}:{#ENCAP}'
               type: CALCULATED
@@ -1115,6 +1319,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: c42a563423db4b1db1e9de307562c32a
               name: 'Service: {#SERVICE_ID} - Ingress Pchip Dropped Octets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -1146,6 +1356,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 66001b11c04742d19e6c28584b59eaf6
               name: 'Service: {#SERVICE_ID} - Ingress Pchip Dropped Packets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -1173,6 +1389,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 7c90c885baa943c5843197348ed335be
               name: 'Service: {#SERVICE_ID} - Ingress Pchip Offered Uncolored Octets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -1204,6 +1426,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
             - uuid: 1e371516110940e488207786164d7568
               name: 'Service: {#SERVICE_ID} - Ingress Pchip Offered Uncolored Packets for sap:{#PORT_NAME}:{#ENCAP}'
               type: SNMP_AGENT
@@ -1231,6 +1459,12 @@ zabbix_export:
                   value: 'sap:{#PORT_NAME}:{#ENCAP}'
                 - tag: service
                   value: '{#SERVICE_ID}'
+                - tag: serviceDescription
+                  value: '{#SERVICE_DESC}'
+                - tag: serviceName
+                  value: '{#SERVICE_NAME}'
+                - tag: serviceType
+                  value: '{#SVC_TYPE}'
           graph_prototypes:
             - uuid: d57d8ff008c74de3a5d54b8a008f1c4c
               name: 'Packets Pchip service {#SERVICE_ID} sap:{#PORT_NAME}:{#ENCAP} Details'
@@ -1444,8 +1678,12 @@ zabbix_export:
                   // from separate SNMP walks (TIMETRA-SERV-MIB) into a single discovery array.
                   
                   var input = JSON.parse(value);
+                  // Service type value mapping (TmnxServType from TIMETRA-SERV-MIB)
+                  var svcTypeMap = {"0":"unknown","1":"epipe","3":"vpls","4":"vprn","5":"ies","6":"mirror","7":"apipe","8":"fpipe","9":"ipipe","10":"cpipe","11":"intTls","12":"evpnIsaTls"};
                   var ports = {};
                   var services = {};
+                  var svcNames = {};
+                  var svcDescs = {};
                   var sapData = {};
                   var customers = {};
                   var svcTypes = {};
@@ -1460,9 +1698,17 @@ zabbix_export:
                       if (item["{#PORT_NAME}"]) {
                           ports[idx] = item["{#PORT_NAME}"];
                       }
-                      // Service type — keyed by svcId
+                      // Service type — map numeric value to name (TmnxServType)
                       if (item["{#SVC_TYPE}"]) {
-                          svcTypes[idx] = item["{#SVC_TYPE}"];
+                          svcTypes[idx] = svcTypeMap[item["{#SVC_TYPE}"]] || item["{#SVC_TYPE}"];
+                      }
+                      // Service name — keyed by svcId
+                      if (item["{#SVC_NAME}"]) {
+                          svcNames[idx] = item["{#SVC_NAME}"];
+                      }
+                      // Service description — keyed by svcId
+                      if (item["{#SVC_DESC}"]) {
+                          svcDescs[idx] = item["{#SVC_DESC}"];
                       }
                       // Service IDs — keyed by svcId
                       if (item["{#SVC_ID_VAL}"]) {
@@ -1518,6 +1764,8 @@ zabbix_export:
                           "{#SNMPINDEX}": snmpIndex,
                           "{#PORT_NAME}": ports[entry.portId] || "Port-" + entry.portId,
                           "{#SERVICE_ID}": services[svcIndex] || svcIndex,
+                          "{#SERVICE_NAME}": svcNames[svcIndex] || services[svcIndex] || svcIndex,
+                          "{#SERVICE_DESC}": svcDescs[svcIndex] || "",
                           "{#SVC_TYPE}": svcTypes[svcIndex] || "",
                           "{#ENCAP}": entry.encap || "0",
                           "{#CUSTOMER_ID}": custId,

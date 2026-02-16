@@ -3,8 +3,11 @@
 // far-end IPs, service names, and customer info from TIMETRA-SERV-MIB walks.
 
 var input = JSON.parse(value);
+// Service type value mapping (TmnxServType from TIMETRA-SERV-MIB)
+var svcTypeMap = {"0":"unknown","1":"epipe","3":"vpls","4":"vprn","5":"ies","6":"mirror","7":"apipe","8":"fpipe","9":"ipipe","10":"cpipe","11":"intTls","12":"evpnIsaTls"};
 var services = {};
 var svcTypes = {};
+var svcDescs = {};
 var sdpIps = {};
 var sdpEntries = [];
 var svcCustomers = {};
@@ -18,8 +21,10 @@ input.forEach(function (item) {
 
     // Service name — prefer descriptive name, fall back to numeric ID
     if (item["{#SVC_NAME}"]) { services[idx] = item["{#SVC_NAME}"]; }
-    // Service type (e.g. VPLS, VPRN, Epipe)
-    if (item["{#SVC_TYPE}"]) { svcTypes[idx] = item["{#SVC_TYPE}"]; }
+    // Service type — map numeric value to name (TmnxServType)
+    if (item["{#SVC_TYPE}"]) { svcTypes[idx] = svcTypeMap[item["{#SVC_TYPE}"]] || item["{#SVC_TYPE}"]; }
+    // Service description
+    if (item["{#SVC_DESC}"]) { svcDescs[idx] = item["{#SVC_DESC}"]; }
     // Service ID value — fallback when descriptive service name is unavailable
     if (item["{#SVC_ID_VAL}"]) { if (!services[idx]) services[idx] = item["{#SVC_ID_VAL}"]; }
     // SDP far-end IP address — keyed by sdpId
@@ -82,6 +87,7 @@ sdpEntries.forEach(function (sdp) {
             "{#SNMPINDEX}": index,
             "{#SERVICE_ID}": svcIdRaw,
             "{#SERVICE_NAME}": svcName,
+            "{#SERVICE_DESC}": svcDescs[svcIdRaw] || "",
             "{#SVC_TYPE}": svcTypes[svcIdRaw] || "",
             "{#SDP_ID}": sdpIdNum.toString(),
             "{#VC_ID}": vcIdNum.toString(),

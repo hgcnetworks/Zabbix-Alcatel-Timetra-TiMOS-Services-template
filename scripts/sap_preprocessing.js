@@ -3,8 +3,12 @@
 // from separate SNMP walks (TIMETRA-SERV-MIB) into a single discovery array.
 
 var input = JSON.parse(value);
+// Service type value mapping (TmnxServType from TIMETRA-SERV-MIB)
+var svcTypeMap = {"0":"unknown","1":"epipe","3":"vpls","4":"vprn","5":"ies","6":"mirror","7":"apipe","8":"fpipe","9":"ipipe","10":"cpipe","11":"intTls","12":"evpnIsaTls"};
 var ports = {};
 var services = {};
+var svcNames = {};
+var svcDescs = {};
 var sapData = {};
 var customers = {};
 var svcTypes = {};
@@ -19,9 +23,17 @@ input.forEach(function (item) {
     if (item["{#PORT_NAME}"]) {
         ports[idx] = item["{#PORT_NAME}"];
     }
-    // Service type — keyed by svcId
+    // Service type — map numeric value to name (TmnxServType)
     if (item["{#SVC_TYPE}"]) {
-        svcTypes[idx] = item["{#SVC_TYPE}"];
+        svcTypes[idx] = svcTypeMap[item["{#SVC_TYPE}"]] || item["{#SVC_TYPE}"];
+    }
+    // Service name — keyed by svcId
+    if (item["{#SVC_NAME}"]) {
+        svcNames[idx] = item["{#SVC_NAME}"];
+    }
+    // Service description — keyed by svcId
+    if (item["{#SVC_DESC}"]) {
+        svcDescs[idx] = item["{#SVC_DESC}"];
     }
     // Service IDs — keyed by svcId
     if (item["{#SVC_ID_VAL}"]) {
@@ -77,6 +89,8 @@ for (var snmpIndex in sapData) {
         "{#SNMPINDEX}": snmpIndex,
         "{#PORT_NAME}": ports[entry.portId] || "Port-" + entry.portId,
         "{#SERVICE_ID}": services[svcIndex] || svcIndex,
+        "{#SERVICE_NAME}": svcNames[svcIndex] || services[svcIndex] || svcIndex,
+        "{#SERVICE_DESC}": svcDescs[svcIndex] || "",
         "{#SVC_TYPE}": svcTypes[svcIndex] || "",
         "{#ENCAP}": entry.encap || "0",
         "{#CUSTOMER_ID}": custId,
