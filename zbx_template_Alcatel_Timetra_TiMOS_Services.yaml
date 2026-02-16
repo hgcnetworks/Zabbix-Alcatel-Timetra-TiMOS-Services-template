@@ -17,7 +17,7 @@ zabbix_export:
         Created by HGCNetworks
       vendor:
         name: HGCNetworks
-        version: 1.0-4
+        version: 1.0-5
       groups:
         - name: 'Templates/Network devices'
       discovery_rules:
@@ -37,13 +37,7 @@ zabbix_export:
                 name: sdpBindOperStatus
               tags:
                 - tag: component
-                  value: MPLS
-                - tag: component
                   value: sdpBind
-                - tag: component
-                  value: service
-                - tag: component
-                  value: SR-OS
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
@@ -65,7 +59,7 @@ zabbix_export:
                   manual_close: 'YES'
                   tags:
                     - tag: component
-                      value: sdp
+                      value: sdpBind
                     - tag: customer
                       value: '{#CUSTOMER}'
                     - tag: customerId
@@ -86,17 +80,17 @@ zabbix_export:
                 - type: CHANGE_PER_SECOND
               tags:
                 - tag: component
-                  value: MPLS
-                - tag: component
                   value: sdpBind
-                - tag: component
-                  value: service
-                - tag: component
-                  value: SR-OS
+                - tag: counter
+                  value: Forwarded
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Egress
+                - tag: metric
+                  value: packets
                 - tag: sdpId
                   value: '{#SDP_ID}'
                 - tag: sdpType
@@ -117,17 +111,17 @@ zabbix_export:
                 - type: CHANGE_PER_SECOND
               tags:
                 - tag: component
-                  value: MPLS
-                - tag: component
                   value: sdpBind
-                - tag: component
-                  value: service
-                - tag: component
-                  value: SR-OS
+                - tag: counter
+                  value: Forwarded
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: traffic
                 - tag: sdpId
                   value: '{#SDP_ID}'
                 - tag: sdpType
@@ -148,17 +142,17 @@ zabbix_export:
                 - type: CHANGE_PER_SECOND
               tags:
                 - tag: component
-                  value: MPLS
-                - tag: component
                   value: sdpBind
-                - tag: component
-                  value: service
-                - tag: component
-                  value: SR-OS
+                - tag: counter
+                  value: Dropped
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: traffic
                 - tag: sdpId
                   value: '{#SDP_ID}'
                 - tag: sdpType
@@ -175,17 +169,17 @@ zabbix_export:
                 - type: CHANGE_PER_SECOND
               tags:
                 - tag: component
-                  value: MPLS
-                - tag: component
                   value: sdpBind
-                - tag: component
-                  value: service
-                - tag: component
-                  value: SR-OS
+                - tag: counter
+                  value: Dropped
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: packets
                 - tag: sdpId
                   value: '{#SDP_ID}'
                 - tag: sdpType
@@ -202,17 +196,17 @@ zabbix_export:
                 - type: CHANGE_PER_SECOND
               tags:
                 - tag: component
-                  value: MPLS
-                - tag: component
                   value: sdpBind
-                - tag: component
-                  value: service
-                - tag: component
-                  value: SR-OS
+                - tag: counter
+                  value: Forwarded
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Ingress
+                - tag: metric
+                  value: packets
                 - tag: sdpId
                   value: '{#SDP_ID}'
                 - tag: sdpType
@@ -233,17 +227,17 @@ zabbix_export:
                 - type: CHANGE_PER_SECOND
               tags:
                 - tag: component
-                  value: MPLS
-                - tag: component
                   value: sdpBind
-                - tag: component
-                  value: service
-                - tag: component
-                  value: SR-OS
+                - tag: counter
+                  value: Forwarded
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
                   value: '{#CUSTOMER_ID}'
+                - tag: direction
+                  value: Egress
+                - tag: metric
+                  value: traffic
                 - tag: sdpId
                   value: '{#SDP_ID}'
                 - tag: sdpType
@@ -419,8 +413,6 @@ zabbix_export:
                   value: Pchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Offered
                 - tag: customer
@@ -448,8 +440,6 @@ zabbix_export:
                   value: Pchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Offered
                 - tag: customer
@@ -481,8 +471,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Dropped
                 - tag: customer
@@ -510,8 +498,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Dropped
                 - tag: customer
@@ -537,8 +523,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Forwarded
                 - tag: customer
@@ -564,8 +548,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Forwarded
                 - tag: customer
@@ -598,8 +580,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Forwarded
                 - tag: customer
@@ -631,8 +611,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Dropped
                 - tag: customer
@@ -664,8 +642,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Forwarded
                 - tag: customer
@@ -693,8 +669,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Dropped
                 - tag: customer
@@ -722,8 +696,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Forwarded
                 - tag: customer
@@ -751,8 +723,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Forwarded
                 - tag: customer
@@ -784,8 +754,6 @@ zabbix_export:
                   value: Pchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Offered
                 - tag: customer
@@ -813,8 +781,6 @@ zabbix_export:
                   value: Pchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Offered
                 - tag: customer
@@ -846,8 +812,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Dropped
                 - tag: customer
@@ -875,8 +839,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Dropped
                 - tag: customer
@@ -901,8 +863,6 @@ zabbix_export:
               tags:
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: customer
                   value: '{#CUSTOMER}'
                 - tag: customerId
@@ -942,8 +902,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Forwarded
                 - tag: customer
@@ -975,8 +933,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Forwarded
                 - tag: customer
@@ -1008,8 +964,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Dropped
                 - tag: customer
@@ -1041,8 +995,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Forwarded
                 - tag: customer
@@ -1070,8 +1022,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Dropped
                 - tag: customer
@@ -1099,8 +1049,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Forwarded
                 - tag: customer
@@ -1128,8 +1076,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Forwarded
                 - tag: customer
@@ -1155,8 +1101,6 @@ zabbix_export:
                   value: Qchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Forwarded
                 - tag: customer
@@ -1188,8 +1132,6 @@ zabbix_export:
                   value: Pchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Dropped
                 - tag: customer
@@ -1217,8 +1159,6 @@ zabbix_export:
                   value: Pchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Dropped
                 - tag: customer
@@ -1250,8 +1190,6 @@ zabbix_export:
                   value: Pchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Offered
                 - tag: customer
@@ -1279,8 +1217,6 @@ zabbix_export:
                   value: Pchip
                 - tag: component
                   value: sap
-                - tag: component
-                  value: service
                 - tag: counter
                   value: Offered
                 - tag: customer
@@ -1593,6 +1529,12 @@ zabbix_export:
       tags:
         - tag: class
           value: network
+        - tag: component
+          value: MPLS
+        - tag: component
+          value: service
+        - tag: component
+          value: SR-OS
         - tag: target
           value: alcatel
         - tag: target
